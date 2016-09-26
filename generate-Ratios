@@ -1,0 +1,24 @@
+#!/bin/bash
+# Linux/UNIX box with ssh key based login enabled
+# SSH User name
+
+echo "Generating GNU parallel command files..."
+
+rm Ratio_GNUParallel_commands.txt
+
+for ((o = 0; o < 60; o = o + 1))
+
+do
+
+for ((t = 1; t < 10; t = t + 1))
+
+do
+
+echo './ratio Pure_Proc_AllAnalysis/ '$o' '$t' >> log.txt' >> Ratio_GNUParallel_commands.txt
+
+
+done
+
+done
+
+echo "Done running bash script"

@@ -1,0 +1,35 @@
+#!/bin/bash
+# Linux/UNIX box with ssh key based login enabled
+# SSH User name
+
+echo "Generating GNU parallel command files..."
+
+##### Edit these variables to generate the script 	#####
+#polFlag=1
+#polSide=W
+#nbEvents=10000
+##### 							#####
+
+rm Asymm_GNUParallel_commands.txt
+
+for ((o = 0; o < 60; o = o + 1))
+
+do
+
+for ((v = 13; v < 21; v = v + 7))
+
+do
+
+for ((a = 1; a < 10; a = a + 1))
+
+do
+
+echo './asymm RunFiles/ octet_list_NEWCAL/All_Octets/'$o' '$a' '$v' >> log.txt' >> Asymm_GNUParallel_commands.txt
+
+done
+
+done
+
+done
+
+echo "Done running bash script"
