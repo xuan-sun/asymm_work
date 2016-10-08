@@ -24,7 +24,7 @@ for ((a = 1; a < 10; a = a + 1))
 
 do
 
-echo './asymm RunFiles/ octet_list_NEWCAL/All_Octets/'$o' '$a' '$v' >> log.txt' >> Asymm_GNUParallel_commands.txt
+echo './asymm /extern/UCNA/reverse_cal_sim_NEWCAL/beta/ /extern/UCNA/octet_list_NEWCAL/2011-2012/ '$o' '$a' '$v' >> log.txt' >> Asymm_GNUParallel_commands.txt
 
 done
 

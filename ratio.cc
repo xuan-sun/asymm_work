@@ -39,7 +39,7 @@ using		 namespace std;
 //required later for plot_program
 TApplication plot_program("FADC_readin",0,0,0,0);
 
-void FillTheoryCorrections(vector <double> *E, vector <double> *A, vector <double> *E_error, vector <double> *A_error);
+void FillTheoryCorrections(vector <double> *Eth, vector <double> *Ath, vector <double> *Eth_error, vector <double> *Ath_error);
 void LoadFile(TString fileName, vector <double> *E, vector <double> *A, vector <double> *E_error, vector <double> *A_error);
 void PlotHist(TCanvas *C, int styleIndex, int canvaxIndex, TH1D *hPlot, TString title, TString command);
 void PlotGraph(TCanvas *C, int styleIndex, int canvasIndex, TGraphErrors* gPlot, TString title, TString command);
@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-      ratio = (*A_pure)[i]/ (*A_proc)[i];
+      ratio = (-1)*(*A_pure)[i]/ (*A_proc)[i];
     }
 
     if(ratio == 0 || (*A_pure)[i] == 0 || (*A_proc)[i] == 0)
@@ -101,11 +101,13 @@ int main(int argc, char* argv[])
     }
     else
     {
+      // error when there is statistical error in each pure and proc.
+      // When error in pure is 0 though it will still propagate correctly.
       ratioE = abs(ratio)*sqrt( ((*A_error_pure)[i] / (*A_pure)[i])*((*A_error_pure)[i] / (*A_pure)[i]) +
-		((*A_error_pure)[i] / (*A_proc)[i])*((*A_error_proc)[i] / (*A_proc)[i]));
+		((*A_error_proc)[i] / (*A_proc)[i])*((*A_error_proc)[i] / (*A_proc)[i]));
     }
 
-    pureOverProc_ratio.push_back(ratio - 1);
+    pureOverProc_ratio.push_back(ratio);
     ratioError.push_back(ratioE);
   }
   //	Creates output .txt files containing the correction ratios
@@ -170,14 +172,15 @@ int main(int argc, char* argv[])
   return 0;
 }
 
-void FillTheoryCorrections(vector <double> *E, vector <double> *A, vector <double> *E_error, vector <double> *A_error)
+void FillTheoryCorrections(vector <double> *Eth, vector <double> *Ath, vector <double> *Eth_error, vector <double> *Ath_error)
 {
-  for(int e = 5; e < 806; e = e + 10)
+  for(int e = 5; e < 1201; e = e + 10)
   {
-    E->push_back(e);
-    A->push_back(correctedAsymmetry(e, 0.5));
-    E_error->push_back(5);
-    A_error->push_back(0);
+    Eth->push_back(e);
+//    A->push_back(correctedAsymmetry(e, 0.5)*beta(e)/2.);
+    Ath->push_back(A0_PDG*asymmetryCorrectionFactor(e)*beta(e)/2.);
+    Eth_error->push_back(5);
+    Ath_error->push_back(0);
   }
 
 }

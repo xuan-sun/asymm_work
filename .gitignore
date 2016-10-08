@@ -1,3 +1,9 @@
+tarfiles/*
+MBrown_XSun_Testing/*
+ResultsRatios_highStats/*
+ResultsRatios_lowStats/*
+ResultsAsymm_highStats/*
+ResultsAsymm_lowStats/*
 All_Asymm_Initial_Testing/*
 Asymm_Octets_45_47/*
 octet_list_NEWCAL/*
